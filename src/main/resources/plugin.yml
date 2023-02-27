@@ -1,0 +1,42 @@
+name: BuddyTP
+version: '${version}'
+main: net.bonn2.buddytp.BuddyTP
+api-version: 1.19
+authors: [ bonn2 ]
+description: A teleportation system
+commands:
+  buddytp:
+    description: Teleport to a friend, once
+    permission: buddytp.send
+    aliases: [ btp ]
+  buddytpaccept:
+    description: Accept a friends request to teleport
+    permission: buddytp.accept
+    aliases: [ btpaccept ]
+  buddytpdeny:
+    description: Deny a request to teleport
+    permission: buddytp.deny
+    aliases: [ btpdeny ]
+  buddytpcancel:
+    description: Cancel a request to teleport
+    permission: buddytp.cancel
+    aliases: [ btpcancel ]
+  resetbuddytp:
+    description: Reset a players free buddytps
+    permission: buddytp.reset
+permissions:
+  buddytp.send:
+    description: Allows sending buddytp requests
+    default: true
+  buddytp.accept:
+    description: Allows accepting buddytp requests
+    default: true
+  buddytp.deny:
+    description: Allows denying buddytp requests
+    default: true
+  buddytp.cancel:
+    description: Allows a player to cancel buddytp requests
+    default: true
+  buddytp.reset:
+    description: Allows resetting of buddytps
+    default: op
