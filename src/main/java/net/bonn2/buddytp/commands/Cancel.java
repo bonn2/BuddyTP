@@ -2,7 +2,6 @@ package net.bonn2.buddytp.commands;
 
 import net.bonn2.buddytp.util.BuddyTeleportRequest;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

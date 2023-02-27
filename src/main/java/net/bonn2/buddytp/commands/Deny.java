@@ -62,9 +62,11 @@ public class Deny implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String @NotNull [] args) {
         List<String> completions = new ArrayList<>();
         if (args.length == 1) {
+            List<Player> activeRequests = new ArrayList<>();
+            for (BuddyTeleportRequest request : BuddyTeleportRequests.getRequestsForPlayer((Player) sender))
+                activeRequests.add(request.getSender());
             String partialName = args[0];
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (player == sender) continue;
+            for (Player player : activeRequests) {
                 String playerName = player.getName();
                 if (playerName.toLowerCase().startsWith(partialName.toLowerCase())) {
                     completions.add(playerName);
