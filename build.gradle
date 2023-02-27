@@ -1,7 +1,12 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.0'
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
 
 group = 'net.bonn2'
 version = '1.0-SNAPSHOT'
@@ -24,7 +29,7 @@ repositories {
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT'
-    shadow 'com.github.Exlll.ConfigLib:configlib-yaml:v4.2.0'
+    implementation 'com.github.Exlll.ConfigLib:configlib-yaml:v4.2.0'
 }
 
 def targetJavaVersion = 17
@@ -50,4 +55,18 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+tasks.named('shadowJar', ShadowJar) {
+    enableRelocation true
+    relocationPrefix "shadow"
+    minimize()
+}
+
+shadowJar {
+    archiveClassifier.set('')
+}
+
+tasks.named('build') {
+    dependsOn shadowJar
 }
