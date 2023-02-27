@@ -26,8 +26,11 @@ public class BuddyTeleportRequests {
             timeoutCheck = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    for (BuddyTeleportRequest request : requests) {
-                        if (!request.isActive()) request.timeout();
+                    for (int i = 0; i < requests.size(); i++) {
+                        if (!requests.get(i).isActive()) {
+                            requests.get(i).timeout();
+                            i--;
+                        }
                     }
                 }
             }.runTaskTimer(plugin, 0L, 20L);
