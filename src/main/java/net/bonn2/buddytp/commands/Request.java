@@ -1,5 +1,6 @@
 package net.bonn2.buddytp.commands;
 
+import net.bonn2.buddytp.config.Config;
 import net.bonn2.buddytp.util.BuddyTeleportRequest;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Data;
@@ -48,8 +49,8 @@ public class Request implements CommandExecutor, TabCompleter {
         BuddyTeleportRequest request = new BuddyTeleportRequest(player, target);
         BuddyTeleportRequests.addRequest(request);
 
-        target.sendMessage(player.getName() + " wants to buddy teleport to you. Type '/buddytpaccept' to accept or '/buddytpdeny' to decline.");
-        player.sendMessage("Buddy teleport request sent to " + target.getName() + ".");
+        target.sendMessage(player.getName() + " wants to buddy teleport to you. Type '/buddytpaccept' to accept or '/buddytpdeny' to decline. It will expire in " + Config.instance.timeout + " seconds");
+        player.sendMessage("Buddy teleport request sent to " + target.getName() + ". It will expire in " + Config.instance.timeout + " seconds");
 
         return true;
     }

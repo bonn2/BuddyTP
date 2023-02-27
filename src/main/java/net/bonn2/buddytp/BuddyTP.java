@@ -2,6 +2,7 @@ package net.bonn2.buddytp;
 
 import net.bonn2.buddytp.commands.*;
 import net.bonn2.buddytp.config.Config;
+import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Data;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,6 +32,9 @@ public final class BuddyTP extends JavaPlugin {
         Objects.requireNonNull(getCommand("buddytpcancel")).setTabCompleter(new Cancel());
         Objects.requireNonNull(getCommand("resetbuddytp")).setExecutor(new Reset());
         Objects.requireNonNull(getCommand("resetbuddytp")).setTabCompleter(new Reset());
+
+        // Start recurring tasks
+        BuddyTeleportRequests.startTimeoutCheck(this);
     }
 
     @Override

@@ -1,14 +1,15 @@
 package net.bonn2.buddytp.util;
 
+import net.bonn2.buddytp.config.Config;
 import org.bukkit.entity.Player;
 
 /**
  * Represents a buddy teleport request from one player to another.
  */
 public class BuddyTeleportRequest {
-    private Player sender;
-    private Player targetPlayer;
-    private long creationTime;
+    private final Player sender;
+    private final Player targetPlayer;
+    private final long creationTime;
 
     /**
      * Constructs a new buddy teleport request.
@@ -45,8 +46,7 @@ public class BuddyTeleportRequest {
      *         False if the request is not active
      */
     public boolean isActive() {
-        // TODO: Implementation
-        return true;
+        return (System.currentTimeMillis() - creationTime) / 1000 < Config.instance.timeout;
     }
 
     /**
@@ -82,6 +82,17 @@ public class BuddyTeleportRequest {
     public void cancel() {
         sender.sendMessage("Your buddy teleport request has been canceled.");
         targetPlayer.sendMessage("The teleport request from " + sender.getName() + " has been canceled.");
+        BuddyTeleportRequests.removeRequest(this);
+    }
+
+    /**
+     * Times out a buddy teleport request.
+     * Notifies the sender and target that the request has timed out and
+     * removes the request from the list of pending requests
+     */
+    public void timeout() {
+        sender.sendMessage("Your buddy teleport request has timed out.");
+        targetPlayer.sendMessage("The teleport request from " + sender.getName() + " has timed out.");
         BuddyTeleportRequests.removeRequest(this);
     }
 }

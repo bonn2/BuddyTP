@@ -16,15 +16,12 @@ public class Config {
     @Ignore
     private static final File configFile = new File(BuddyTP.plugin.getDataFolder() + File.separator + "config.yml");
 
-    @Comment({
-            "This is a test comment",
-            "with two lines"
-    })
-    public boolean test = true;
+    @Comment({"How long a buddytp request lasts before it times out (seconds)"})
+    public int timeout = 60;
 
     public static void load() {
         instance = new Config();
-        YamlConfigurations.save(configFile.toPath(), Config.class, instance);
+        YamlConfigurations.update(configFile.toPath(), Config.class);
         instance = YamlConfigurations.load(configFile.toPath(), Config.class);
     }
 }

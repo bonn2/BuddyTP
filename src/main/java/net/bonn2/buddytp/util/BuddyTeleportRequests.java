@@ -1,6 +1,9 @@
 package net.bonn2.buddytp.util;
 
+import net.bonn2.buddytp.BuddyTP;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,7 +14,27 @@ import java.util.List;
  * Keeps track of pending buddy teleport requests.
  */
 public class BuddyTeleportRequests {
-    private static List<BuddyTeleportRequest> requests = new ArrayList<>();
+    private static final List<BuddyTeleportRequest> requests = new ArrayList<>();
+    private static BukkitTask timeoutCheck;
+
+    /**
+     * Start the BukkitTask for checking for timed out requests, this should only be run <b>once</b> at startup
+     * @param plugin The plugin the task will be registered to.
+     */
+    public static void startTimeoutCheck(BuddyTP plugin) {
+        if (timeoutCheck == null || timeoutCheck.isCancelled()) {
+            timeoutCheck = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    for (BuddyTeleportRequest request : requests) {
+                        if (!request.isActive()) request.timeout();
+                    }
+                }
+            }.runTaskTimer(plugin, 0L, 20L);
+        } else {
+            plugin.getLogger().warning("BuddyTeleportRequests#startTimeoutCheck has been called multiple times! This is not supported behaviour!");
+        }
+    }
 
     /**
      * Adds a new buddy teleport request to the list of pending requests.
