@@ -62,7 +62,7 @@ public class Data {
     public static void resetBuddyTP(@NotNull Player player) {
         playerData.remove(new JsonPrimitive(player.getUniqueId().toString()));
         save();
-        player.sendMessage("Your buddytp has been reset.");
+        player.sendMessage(Messages.get("your-buddy-tp-reset"));
     }
 
     /**

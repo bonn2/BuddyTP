@@ -2,7 +2,7 @@ package net.bonn2.buddytp.commands;
 
 import net.bonn2.buddytp.util.BuddyTeleportRequest;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
-import org.bukkit.Bukkit;
+import net.bonn2.buddytp.util.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,14 +11,16 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Deny implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only players can use this command.");
+            sender.sendMessage(Messages.get("only-players"));
             return true;
         }
 
@@ -26,7 +28,7 @@ public class Deny implements CommandExecutor, TabCompleter {
 
         // Sender has no active requests
         if (requests.size() == 0) {
-            sender.sendMessage("You do not have any pending requests.");
+            sender.sendMessage(Messages.get("no-pending-requests"));
             return true;
         }
 
@@ -40,7 +42,7 @@ public class Deny implements CommandExecutor, TabCompleter {
 
         // Sender has not specified who to deny
         if (args.length == 0) {
-            sender.sendMessage("You have multiple pending requests! Please specify which one you want to deny: /buddytpdeny <player>");
+            sender.sendMessage(Messages.get("multiple-pending"));
             return true;
         }
 
@@ -54,7 +56,10 @@ public class Deny implements CommandExecutor, TabCompleter {
         }
 
         // Sender specified a request that does not exist
-        sender.sendMessage("You do not have an active request from the player " + args[0]);
+        Map<String, String> placeholders = new HashMap<>(2);
+        placeholders.put("%sender%", args[0]);
+        placeholders.put("%target%", sender.getName());
+        sender.sendMessage(Messages.get("no-active-request", placeholders));
         return true;
     }
 

@@ -2,6 +2,7 @@ package net.bonn2.buddytp.commands;
 
 import net.bonn2.buddytp.util.BuddyTeleportRequest;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
+import net.bonn2.buddytp.util.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,7 @@ public class Cancel implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only players can use this command.");
+            sender.sendMessage(Messages.get("only-players"));
             return true;
         }
 
@@ -24,7 +25,7 @@ public class Cancel implements CommandExecutor, TabCompleter {
 
         // Sender has no active requests
         if (request == null) {
-            sender.sendMessage("You do not have any pending requests.");
+            sender.sendMessage(Messages.get("no-pending-requests"));
             return true;
         }
 

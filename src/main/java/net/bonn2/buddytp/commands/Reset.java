@@ -1,6 +1,7 @@
 package net.bonn2.buddytp.commands;
 
 import net.bonn2.buddytp.util.Data;
+import net.bonn2.buddytp.util.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,31 +11,38 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Reset implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("Usage: /resetbuddytp <player>");
-            return true;
+            return false;
         }
+
+        Map<String, String> placeholders = new HashMap<>(2);
+        placeholders.put("%target%", args[0]);
 
         Player target = Bukkit.getPlayer(args[0]);
 
         if (target == null) {
-            sender.sendMessage("Could not find player " + args[0] + ".");
+            sender.sendMessage(Messages.get("could-not-find-player", placeholders));
             return true;
         }
 
+        // Update placeholder to get correct capitalization
+        placeholders.put("%target%", target.getName());
+
         if (Data.hasBuddyTP(target)) {
-            sender.sendMessage(args[0] + " already has their buddytp.");
+            sender.sendMessage(Messages.get("already-has-buddy-tp", placeholders));
             return true;
         }
 
         Data.resetBuddyTP(target);
-        sender.sendMessage("Successfully reset " + args[0] + "'s buddytp");
+        sender.sendMessage(Messages.get("reset-buddy-tp", placeholders));
         return true;
     }
 

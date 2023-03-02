@@ -2,6 +2,10 @@ package net.bonn2.buddytp.util;
 
 import net.bonn2.buddytp.config.Config;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a buddy teleport request from one player to another.
@@ -56,8 +60,8 @@ public class BuddyTeleportRequest {
      * from the list of pending requests.
      */
     public void accept() {
-        targetPlayer.sendMessage("You have accepted a teleport request from %s".formatted(sender.getName()));
-        sender.sendMessage("Your request to teleport to %s has been accepted.".formatted(targetPlayer.getName()));
+        targetPlayer.sendMessage(Messages.get("accepted-target", getPlaceholders()));
+        sender.sendMessage(Messages.get("accepted-sender", getPlaceholders()));
         sender.teleport(targetPlayer.getLocation());
         Data.useBuddyTP(sender);
         BuddyTeleportRequests.removeRequest(this);
@@ -69,8 +73,8 @@ public class BuddyTeleportRequest {
      * removes the request from the list of pending requests.
      */
     public void deny() {
-        targetPlayer.sendMessage("You have declined a buddy teleport request from: " + sender.getName());
-        sender.sendMessage("Your buddy teleport request has been declined.");
+        targetPlayer.sendMessage(Messages.get("denied-target", getPlaceholders()));
+        sender.sendMessage(Messages.get("denied-sender", getPlaceholders()));
         BuddyTeleportRequests.removeRequest(this);
     }
 
@@ -80,8 +84,8 @@ public class BuddyTeleportRequest {
      * removes the request from the list of pending requests
      */
     public void cancel() {
-        sender.sendMessage("Your buddy teleport request has been canceled.");
-        targetPlayer.sendMessage("The teleport request from " + sender.getName() + " has been canceled.");
+        targetPlayer.sendMessage(Messages.get("canceled-target", getPlaceholders()));
+        sender.sendMessage(Messages.get("canceled-sender", getPlaceholders()));
         BuddyTeleportRequests.removeRequest(this);
     }
 
@@ -91,8 +95,15 @@ public class BuddyTeleportRequest {
      * removes the request from the list of pending requests
      */
     public void timeout() {
-        sender.sendMessage("Your buddy teleport request has timed out.");
-        targetPlayer.sendMessage("The teleport request from " + sender.getName() + " has timed out.");
+        sender.sendMessage(Messages.get("timed-out-sender", getPlaceholders()));
+        targetPlayer.sendMessage(Messages.get("timed-out-target", getPlaceholders()));
         BuddyTeleportRequests.removeRequest(this);
+    }
+
+    private @NotNull Map<String, String> getPlaceholders() {
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("%target%", targetPlayer.getName());
+        placeholders.put("%sender%", sender.getName());
+        return placeholders;
     }
 }

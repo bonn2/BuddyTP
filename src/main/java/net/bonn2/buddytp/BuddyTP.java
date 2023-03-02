@@ -4,6 +4,7 @@ import net.bonn2.buddytp.commands.*;
 import net.bonn2.buddytp.config.Config;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Data;
+import net.bonn2.buddytp.util.Messages;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -20,6 +21,7 @@ public final class BuddyTP extends JavaPlugin {
         // Init data from file
         Config.load();
         Data.load();
+        Messages.load();
 
         // Register commands
         Objects.requireNonNull(getCommand("buddytp")).setExecutor(new Request());

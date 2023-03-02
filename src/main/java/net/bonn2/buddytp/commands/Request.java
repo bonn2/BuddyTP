@@ -4,53 +4,62 @@ import net.bonn2.buddytp.config.Config;
 import net.bonn2.buddytp.util.BuddyTeleportRequest;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Data;
+import net.bonn2.buddytp.util.Messages;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Request implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only players can use this command.");
+            sender.sendMessage(Messages.get("only-players"));
             return true;
         }
 
         if (!Data.hasBuddyTP(player)) {
-            sender.sendMessage("You have already used your buddytp!");
+            sender.sendMessage(Messages.get("used-buddy-tp"));
             return true;
         }
 
         if (args.length == 0) {
-            sender.sendMessage("Usage: /buddytp <player>");
-            return true;
+            return false;
         }
+
+        Map<String, String> placeholders = new HashMap<>(3);
+        placeholders.put("%sender%", sender.getName());
+        placeholders.put("%target%", args[0]);
 
         Player target = Bukkit.getPlayer(args[0]);
 
         if (target == null) {
-            sender.sendMessage("Could not find player " + args[0] + ".");
+            sender.sendMessage(Messages.get("could-not-find-player", placeholders));
             return true;
         }
 
+        // Update target placeholder to get correct capitalization
+        placeholders.put("%target%", target.getName());
+
         if (target.getUniqueId().equals(player.getUniqueId())) {
-            sender.sendMessage("You cannot buddy teleport to yourself.");
+            sender.sendMessage(Messages.get("teleport-to-self", placeholders));
             return true;
         }
 
         BuddyTeleportRequest request = new BuddyTeleportRequest(player, target);
         BuddyTeleportRequests.addRequest(request);
 
-        target.sendMessage(player.getName() + " wants to buddy teleport to you. Type '/buddytpaccept' to accept or '/buddytpdeny' to decline. It will expire in " + Config.instance.timeout + " seconds");
-        player.sendMessage("Buddy teleport request sent to " + target.getName() + ". It will expire in " + Config.instance.timeout + " seconds");
+        // Add timeout placeholder
+        placeholders.put("%timeout%", String.valueOf(Config.instance.timeout));
+
+        target.sendMessage(Messages.get("request-target", placeholders));
+        player.sendMessage(Messages.get("request-sender", placeholders));
 
         return true;
     }
