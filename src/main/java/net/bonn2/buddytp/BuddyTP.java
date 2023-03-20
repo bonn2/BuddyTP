@@ -5,6 +5,7 @@ import net.bonn2.buddytp.config.Config;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Data;
 import net.bonn2.buddytp.util.Messages;
+import net.bonn2.buddytp.util.ModrinthUpdateChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -55,6 +56,11 @@ public final class BuddyTP extends JavaPlugin {
         if (Config.instance.enableBStats) {
             getLogger().info("Enabling bStats, thanks it really helps!");
             new Metrics(this, 18019);
+        }
+
+        // Check for updates
+        if (Config.instance.checkForUpdates) {
+            ModrinthUpdateChecker.check(this);
         }
     }
 

@@ -40,6 +40,9 @@ public class Config {
     @Comment({"If BuddyTp should attempt to set the players home if they do not have one."})
     public boolean setHome = false;
 
+    @Comment({"Should BuddyTP check for updates on startup. It will not auto-download the update"})
+    public boolean checkForUpdates = true;
+
     @Comment({"Set this to false to disable bStats usage reporting."})
     public boolean enableBStats = true;
 
