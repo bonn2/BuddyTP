@@ -4,6 +4,8 @@ main: net.bonn2.buddytp.BuddyTP
 api-version: 1.19
 authors: [ bonn2 ]
 description: A limited teleportation system designed for semi-vanilla smps
+softdepend:
+  - Essentials
 commands:
   buddytp:
     description: Teleport to a friend, once

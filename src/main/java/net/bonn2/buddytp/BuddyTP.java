@@ -23,6 +23,16 @@ public final class BuddyTP extends JavaPlugin {
         Data.load();
         Messages.load();
 
+        // Check if supported sethome plugin is installed
+        if (Config.instance.setHome) {
+            if (getServer().getPluginManager().isPluginEnabled("Essentials")) {
+                getLogger().info("Enabling Essentials Hook");
+            } else {
+                getLogger().warning("Sethome option enabled but no supported sethome plugin detected!");
+                Config.instance.setHome = false;
+            }
+        }
+
         // Register commands
         Objects.requireNonNull(getCommand("buddytp")).setExecutor(new Request());
         Objects.requireNonNull(getCommand("buddytp")).setTabCompleter(new Request());

@@ -16,7 +16,7 @@ public class Config {
     @Ignore
     private static final File configFile = new File(BuddyTP.plugin.getDataFolder() + File.separator + "config.yml");
 
-    @Comment({"How long a buddytp request lasts before it times out (seconds)"})
+    @Comment({"How long a BuddyTp request lasts before it times out (seconds)"})
     public int timeout = 60;
 
     @Comment({"What item buying a new buddy tp costs."})
@@ -25,17 +25,20 @@ public class Config {
     @Comment({"If players should be allowed to teleport to different worlds."})
     public boolean teleportAcrossWords = false;
 
-    @Comment({"If the plugin should limit the worlds to the allowlist."})
+    @Comment({"If BuddyTp should limit the worlds to the allowlist."})
     public boolean enableAllowlist = false;
 
     @Comment({"The worlds that the plugin will allow (only active if above option is true)"})
     public List<String> allowedWorlds = List.of("world", "world_nether", "world_the_end");
 
-    @Comment({"If the plugin should prevent use in the denylist."})
+    @Comment({"If BuddyTp should prevent use in the denylist."})
     public boolean enableDenyList = false;
 
     @Comment({"The worlds that the plugin will deny (only active if above option is true)"})
     public List<String> deniedWorlds = List.of("denied_world");
+
+    @Comment({"If BuddyTp should attempt to set the players home if they do not have one."})
+    public boolean setHome = false;
 
     public static void load() {
         instance = new Config();

@@ -1,6 +1,8 @@
 package net.bonn2.buddytp.util;
 
+import com.earth2me.essentials.IEssentials;
 import net.bonn2.buddytp.config.Config;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -64,6 +66,15 @@ public class BuddyTeleportRequest {
         sender.sendMessage(Messages.get("accepted-sender", getPlaceholders()));
         sender.teleport(targetPlayer.getLocation());
         Data.useBuddyTP(sender);
+        if (Config.instance.setHome) {
+            IEssentials essentials = (IEssentials) Bukkit.getPluginManager().getPlugin("Essentials");
+            if (essentials != null) {
+                if (essentials.getUser(sender).getHomes().size() == 0) {
+                    essentials.getUser(sender).setHome("home", sender.getLocation());
+                    sender.sendMessage(Messages.get("home-set"));
+                }
+            }
+        }
         BuddyTeleportRequests.removeRequest(this);
     }
 

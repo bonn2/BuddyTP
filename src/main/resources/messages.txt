@@ -23,3 +23,4 @@ timed-out-target=&aYour buddy teleport request from %sender% has timed out.
 timed-out-sender=&aYour buddy teleport request to %target% has timed out.
 different-world=&d%target% &cis not in the same world as you!
 not-in-this-world=&cYou are not allowed to use buddytp in this world!
+home-set=&aYour &d/home &ahas been set to your current location
