@@ -13,17 +13,17 @@ commands:
     aliases: [ btp ]
     usage: /buddytp <player>
   buddytpaccept:
-    description: Accept a friends request to teleport
+    description: Accept a teleport request
     permission: buddytp.accept
     aliases: [ btpaccept ]
     usage: /buddytpaccept [player]
   buddytpdeny:
-    description: Deny a request to teleport
+    description: Deny a teleport request
     permission: buddytp.deny
     aliases: [ btpdeny ]
     usage: /buddytpdeny [player]
   buddytpcancel:
-    description: Cancel a request to teleport
+    description: Cancel a teleport request
     permission: buddytp.cancel
     aliases: [ btpcancel ]
     usage: /buddytpcancel
@@ -32,7 +32,7 @@ commands:
     permission: buddytp.buy
     usage: /buybuddytp
   resetbuddytp:
-    description: Reset a players free buddytps
+    description: Reset a players free buddytp
     permission: buddytp.reset
     usage: /resetbuddytp <player>
 permissions:
