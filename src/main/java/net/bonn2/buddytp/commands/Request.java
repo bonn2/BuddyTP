@@ -57,6 +57,16 @@ public class Request implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (Config.instance.enableAllowlist && !Config.instance.allowedWorlds.contains(player.getWorld().getName())) {
+            sender.sendMessage(Messages.get("not-in-this-world", placeholders));
+            return true;
+        }
+
+        if (Config.instance.enableDenyList && Config.instance.deniedWorlds.contains(player.getWorld().getName())) {
+            sender.sendMessage(Messages.get("not-in-this-world", placeholders));
+            return true;
+        }
+
         BuddyTeleportRequest request = new BuddyTeleportRequest(player, target);
         BuddyTeleportRequests.addRequest(request);
 

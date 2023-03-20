@@ -43,6 +43,16 @@ public class Accept implements CommandExecutor, TabCompleter {
                 return true;
             }
 
+            if (Config.instance.enableAllowlist && !Config.instance.allowedWorlds.contains(player.getWorld().getName())) {
+                sender.sendMessage(Messages.get("not-in-this-world", placeholders));
+                return true;
+            }
+
+            if (Config.instance.enableDenyList && Config.instance.deniedWorlds.contains(player.getWorld().getName())) {
+                sender.sendMessage(Messages.get("not-in-this-world", placeholders));
+                return true;
+            }
+
             requests.get(0).accept();
             return true;
         }
@@ -63,6 +73,16 @@ public class Accept implements CommandExecutor, TabCompleter {
                 placeholders.put("%target%", player.getName());
                 if (!Config.instance.teleportAcrossWords && !player.getWorld().equals(request.getSender().getWorld())) {
                     sender.sendMessage(Messages.get("different-world", placeholders));
+                    return true;
+                }
+
+                if (Config.instance.enableAllowlist && !Config.instance.allowedWorlds.contains(player.getWorld().getName())) {
+                    sender.sendMessage(Messages.get("not-in-this-world", placeholders));
+                    return true;
+                }
+
+                if (Config.instance.enableDenyList && Config.instance.deniedWorlds.contains(player.getWorld().getName())) {
+                    sender.sendMessage(Messages.get("not-in-this-world", placeholders));
                     return true;
                 }
 
