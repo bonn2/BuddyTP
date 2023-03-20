@@ -64,7 +64,7 @@ public class Messages {
             if (!messages.containsKey(key)) {
                 missingKeys = true;
                 BuddyTP.plugin.getLogger().warning("Missing translation key %s default value will be written to messages.txt".formatted(key));
-                messagestxt.append("%s=%s".formatted(key, defaultMessages.get(key)));
+                messagestxt.append("\n%s=%s".formatted(key, defaultMessages.get(key)));
             }
         }
         // Prune extra newlines and write updated file

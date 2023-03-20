@@ -1,5 +1,6 @@
 package net.bonn2.buddytp.commands;
 
+import net.bonn2.buddytp.config.Config;
 import net.bonn2.buddytp.util.BuddyTeleportRequest;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Messages;
@@ -34,6 +35,14 @@ public class Accept implements CommandExecutor, TabCompleter {
 
         // Sender has one active request
         if (requests.size() == 1) {
+            Map<String, String> placeholders = new HashMap<>(3);
+            placeholders.put("%sender%", requests.get(0).getSender().getName());
+            placeholders.put("%target%", player.getName());
+            if (!Config.instance.teleportAcrossWords && !player.getWorld().equals(requests.get(0).getSender().getWorld())) {
+                sender.sendMessage(Messages.get("different-world", placeholders));
+                return true;
+            }
+
             requests.get(0).accept();
             return true;
         }
@@ -49,6 +58,14 @@ public class Accept implements CommandExecutor, TabCompleter {
         // Sender has specified who to accept
         for (BuddyTeleportRequest request : requests) {
             if (request.getTargetPlayer().getName().equals(args[0])) {
+                Map<String, String> placeholders = new HashMap<>(3);
+                placeholders.put("%sender%", request.getSender().getName());
+                placeholders.put("%target%", player.getName());
+                if (!Config.instance.teleportAcrossWords && !player.getWorld().equals(request.getSender().getWorld())) {
+                    sender.sendMessage(Messages.get("different-world", placeholders));
+                    return true;
+                }
+
                 // Sender has specified this request
                 request.accept();
                 return true;

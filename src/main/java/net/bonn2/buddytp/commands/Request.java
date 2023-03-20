@@ -52,6 +52,11 @@ public class Request implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (!Config.instance.teleportAcrossWords && !player.getWorld().equals(target.getWorld())) {
+            sender.sendMessage(Messages.get("different-world", placeholders));
+            return true;
+        }
+
         BuddyTeleportRequest request = new BuddyTeleportRequest(player, target);
         BuddyTeleportRequests.addRequest(request);
 

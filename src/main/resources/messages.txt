@@ -21,3 +21,4 @@ canceled-target=&aYour buddy teleport request from %sender% has been canceled.
 canceled-sender=&aYour buddy teleport request to %sender% has been canceled.
 timed-out-target=&aYour buddy teleport request from %sender% has timed out.
 timed-out-sender=&aYour buddy teleport request to %target% has timed out.
+different-world=&d%target% &cis not in the same world as you!
