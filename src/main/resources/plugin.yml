@@ -3,7 +3,7 @@ version: '${version}'
 main: net.bonn2.buddytp.BuddyTP
 api-version: 1.19
 authors: [ bonn2 ]
-description: A teleportation system
+description: A limited teleportation system designed for semi-vanilla smps
 commands:
   buddytp:
     description: Teleport to a friend, once
