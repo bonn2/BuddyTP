@@ -25,6 +25,10 @@ commands:
     permission: buddytp.cancel
     aliases: [ btpcancel ]
     usage: /buddytpcancel
+  buybuddytp:
+    description: Buy a new buddytp
+    permission: buddytp.buy
+    usage: /buybuddytp
   resetbuddytp:
     description: Reset a players free buddytps
     permission: buddytp.reset
@@ -41,6 +45,9 @@ permissions:
     default: true
   buddytp.cancel:
     description: Allows a player to cancel buddytp requests
+    default: true
+  buddytp.buy:
+    description: Allows buying a new buddytp
     default: true
   buddytp.reset:
     description: Allows resetting of buddytps

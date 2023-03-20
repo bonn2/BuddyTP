@@ -34,6 +34,8 @@ public final class BuddyTP extends JavaPlugin {
         Objects.requireNonNull(getCommand("buddytpcancel")).setTabCompleter(new Cancel());
         Objects.requireNonNull(getCommand("resetbuddytp")).setExecutor(new Reset());
         Objects.requireNonNull(getCommand("resetbuddytp")).setTabCompleter(new Reset());
+        Objects.requireNonNull(getCommand("buybuddytp")).setExecutor(new Buy());
+        Objects.requireNonNull(getCommand("buybuddytp")).setTabCompleter(new Buy());
 
         // Start recurring tasks
         BuddyTeleportRequests.startTimeoutCheck(this);

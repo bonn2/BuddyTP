@@ -1,12 +1,12 @@
 package net.bonn2.buddytp.config;
 
-import de.exlll.configlib.Comment;
-import de.exlll.configlib.Configuration;
-import de.exlll.configlib.Ignore;
-import de.exlll.configlib.YamlConfigurations;
+import de.exlll.configlib.*;
 import net.bonn2.buddytp.BuddyTP;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
+import java.util.List;
 
 @Configuration
 public class Config {
@@ -19,9 +19,32 @@ public class Config {
     @Comment({"How long a buddytp request lasts before it times out (seconds)"})
     public int timeout = 60;
 
+    @Comment({"What item buying a new buddy tp costs."})
+    public ItemStack price = new ItemStack(Material.DIAMOND_BLOCK, 1);
+
+    @Comment({"If players should be allowed to teleport to different worlds."})
+    public boolean teleportAcrossWords = false;
+
+    @Comment({"If the plugin should limit the worlds to the allowlist."})
+    public boolean enableAllowlist = false;
+
+    @Comment({"The worlds that the plugin will allow (only active if above option is true)"})
+    public List<String> allowedWorlds = List.of("world", "world_nether", "world_the_end");
+
+    @Comment({"If the plugin should prevent use in the denylist."})
+    public boolean enableDenyList = false;
+
+    @Comment({"The worlds that the plugin will deny (only active if above option is true)"})
+    public List<String> deniedWorlds = List.of("denied_world");
+
     public static void load() {
         instance = new Config();
-        YamlConfigurations.update(configFile.toPath(), Config.class);
-        instance = YamlConfigurations.load(configFile.toPath(), Config.class);
+        YamlConfigurationProperties properties = ConfigLib.BUKKIT_DEFAULT_PROPERTIES.toBuilder()
+                .header("""
+                        BuddyTP config
+                        
+                        """)
+                .build();
+        instance = YamlConfigurations.update(configFile.toPath(), Config.class, properties);
     }
 }

@@ -43,6 +43,7 @@ public class Reset implements CommandExecutor, TabCompleter {
 
         Data.resetBuddyTP(target);
         sender.sendMessage(Messages.get("reset-buddy-tp", placeholders));
+        target.sendMessage(Messages.get("your-buddy-tp-reset"));
         return true;
     }
 
