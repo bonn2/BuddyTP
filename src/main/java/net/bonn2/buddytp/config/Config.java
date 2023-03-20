@@ -40,6 +40,9 @@ public class Config {
     @Comment({"If BuddyTp should attempt to set the players home if they do not have one."})
     public boolean setHome = false;
 
+    @Comment({"Set this to false to disable bStats usage reporting."})
+    public boolean enableBStats = true;
+
     public static void load() {
         instance = new Config();
         YamlConfigurationProperties properties = ConfigLib.BUKKIT_DEFAULT_PROPERTIES.toBuilder()

@@ -5,6 +5,7 @@ import net.bonn2.buddytp.config.Config;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Data;
 import net.bonn2.buddytp.util.Messages;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -49,6 +50,12 @@ public final class BuddyTP extends JavaPlugin {
 
         // Start recurring tasks
         BuddyTeleportRequests.startTimeoutCheck(this);
+
+        // Enable bStats
+        if (Config.instance.enableBStats) {
+            getLogger().info("Enabling bStats, thanks it really helps!");
+            new Metrics(this, 18019);
+        }
     }
 
     @Override
