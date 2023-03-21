@@ -23,3 +23,37 @@ BuddyTP aims to solve this issue by giving every player **one** free teleport.
 |`/buddytpcancel`|`/btpcancel`|`/buddytpcancel`|`buddytp.cancel`|`everyone`|Cancel a teleport request|
 |`/buybuddytp`||`/buybuddytp`|`buddytp.buy`|`everyone`|Buy a new buddytp|
 |`/resetbuddytp`||`/resetbuddytp <player>`|`buddytp.reset`|`op`|Reset a players free buddytps|
+
+## Messages
+- `%sender%` The player who is making the request.
+- `%target%` The player who is receiving the request.
+- `%timeout%` The time in seconds that a request is valid for.
+
+|Key|Placeholders|
+|---|---|
+|`only-players`||
+|`no-pending-requests`||
+|`multiple-pending-requests`||
+|`no-active-request`|`%sender%`|
+|`used-buddy-tp`||
+|`could-not-find-player`|`%target%`|
+|`teleport-to-self`||
+|`already-has-buddy-tp`|`%target%`|
+|`you-already-have-buddy-tp`||
+|`price-too-high`||
+|`bought-buddy-tp`||
+|`reset-buddy-tp`|`%target%`|
+|`your-buddy-tp-reset`||
+|`request-target`|`%target%` `%sender%` `%timeout%`|
+|`request-sender`|`%target%` `%sender%` `%timeout%`|
+|`accepted-target`|`%target%` `%sender%`|
+|`accepted-sender`|`%target%` `%sender%`|
+|`denied-target`|`%target%` `%sender%`|
+|`denied-sender`|`%target%` `%sender%`|
+|`canceled-target`|`%target%` `%sender%`|
+|`canceled-sender`|`%target%` `%sender%`|
+|`timed-out-target`|`%target%` `%sender%`|
+|`timed-out-sender`|`%target%` `%sender%`|
+|`different-world`|`%target%`|
+|`not-in-this-world`||
+|`home-set`||
