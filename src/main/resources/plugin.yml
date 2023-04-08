@@ -2,6 +2,7 @@ name: BuddyTP
 version: '${version}'
 main: net.bonn2.buddytp.BuddyTP
 api-version: 1.17
+folia-supported: true
 authors: [ bonn2 ]
 description: A limited teleportation system designed for semi-vanilla smps
 softdepend:

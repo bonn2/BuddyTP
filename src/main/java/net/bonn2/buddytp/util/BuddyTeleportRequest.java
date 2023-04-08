@@ -64,7 +64,7 @@ public class BuddyTeleportRequest {
     public void accept() {
         targetPlayer.sendMessage(Messages.get("accepted-target", getPlaceholders()));
         sender.sendMessage(Messages.get("accepted-sender", getPlaceholders()));
-        sender.teleport(targetPlayer.getLocation());
+        sender.teleportAsync(targetPlayer.getLocation());
         Data.useBuddyTP(sender);
         if (Config.instance.setHome) {
             IEssentials essentials = (IEssentials) Bukkit.getPluginManager().getPlugin("Essentials");

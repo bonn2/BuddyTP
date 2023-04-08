@@ -7,6 +7,7 @@ import net.bonn2.buddytp.util.Data;
 import net.bonn2.buddytp.util.Messages;
 import net.bonn2.buddytp.util.ModrinthUpdateChecker;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -15,10 +16,20 @@ public final class BuddyTP extends JavaPlugin {
 
     public static BuddyTP plugin;
 
+    public static boolean IS_FOLIA;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
+
+        // Check if running in Folia
+        try {
+            Server.class.getDeclaredMethod("getGlobalRegionScheduler");
+            IS_FOLIA = true;
+        } catch (Throwable ignored) {
+            IS_FOLIA = false;
+        }
 
         // Init data from file
         Config.load();

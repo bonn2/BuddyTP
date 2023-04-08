@@ -1,6 +1,7 @@
 package net.bonn2.buddytp.util;
 
 import net.bonn2.buddytp.BuddyTP;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -23,19 +24,32 @@ public class BuddyTeleportRequests {
      */
     public static void startTimeoutCheck(BuddyTP plugin) {
         if (timeoutCheck == null || timeoutCheck.isCancelled()) {
-            timeoutCheck = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < requests.size(); i++) {
-                        if (!requests.get(i).isActive()) {
-                            requests.get(i).timeout();
-                            i--;
-                        }
+            if (BuddyTP.IS_FOLIA) {
+                Bukkit.getServer().getGlobalRegionScheduler().runAtFixedRate(
+                        BuddyTP.plugin,
+                        scheduledTask -> timeoutCheck(),
+                        20L,
+                        20L
+                );
+            } else {
+                timeoutCheck = new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        timeoutCheck();
                     }
-                }
-            }.runTaskTimer(plugin, 0L, 20L);
+                }.runTaskTimer(plugin, 0L, 20L);
+            }
         } else {
             plugin.getLogger().warning("BuddyTeleportRequests#startTimeoutCheck has been called multiple times! This is not supported behaviour!");
+        }
+    }
+
+    protected static void timeoutCheck() {
+        for (int i = 0; i < requests.size(); i++) {
+            if (!requests.get(i).isActive()) {
+                requests.get(i).timeout();
+                i--;
+            }
         }
     }
 
