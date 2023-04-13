@@ -32,7 +32,6 @@ public class ModrinthUpdateChecker {
                 }
             }.runTaskAsynchronously(plugin);
         }
-
     }
 
     protected static void updateCheck(@NotNull JavaPlugin plugin) {
