@@ -1,13 +1,17 @@
 package net.bonn2.buddytp.util;
 
 import com.earth2me.essentials.IEssentials;
+import net.bonn2.buddytp.BuddyTP;
 import net.bonn2.buddytp.config.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static net.bonn2.buddytp.BuddyTP.plugin;
 
 /**
  * Represents a buddy teleport request from one player to another.
@@ -62,9 +66,27 @@ public class BuddyTeleportRequest {
      * from the list of pending requests.
      */
     public void accept() {
+        sender.teleportAsync(targetPlayer.getLocation()).thenAccept(a -> {
+            if (BuddyTP.IS_FOLIA) {
+                Bukkit.getServer().getAsyncScheduler().runNow(plugin, scheduledTask -> acceptStepTwo());
+            } else {
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        acceptStepTwo();
+                    }
+                }.runTask(plugin);
+            }
+        });
+    }
+
+    /**
+     * The second step for accepting a teleport request.
+     * This method is called by accept()
+     */
+    protected void acceptStepTwo() {
         targetPlayer.sendMessage(Messages.get("accepted-target", getPlaceholders()));
         sender.sendMessage(Messages.get("accepted-sender", getPlaceholders()));
-        sender.teleportAsync(targetPlayer.getLocation());
         Data.useBuddyTP(sender);
         if (Config.instance.setHome) {
             IEssentials essentials = (IEssentials) Bukkit.getPluginManager().getPlugin("Essentials");
