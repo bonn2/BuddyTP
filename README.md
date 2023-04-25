@@ -1,6 +1,6 @@
 # BuddyTP
 ## Goals / Philosophy
-In a semi-vanilla survival multiplayer setting the use of teleportation between players can make creating transport infrastructure (nether highways, piston bolts, etc) in game much less important. This effectively removes a large part of vanilla gameplay. However not having any teleportation creates a higher barrier to entry for players who are joining a preexisting group on the server (for example an irl friend group). This is because players tend to build farther away from spawn on public servers so they are not in the way of other players.
+In a semi-vanilla survival multiplayer setting the use of teleportation between players can make creating transport infrastructure (nether highways, piston bolts, etc) much less important. This effectively removes a large part of vanilla gameplay. However not having any teleportation creates a higher barrier to entry for players who are joining a preexisting group on the server (for example an irl friend group). This is because players tend to build farther away from spawn on public servers so they are not in the way of other players.
 
 BuddyTP aims to solve this issue by giving every player **one** free teleport.
 
@@ -57,3 +57,10 @@ BuddyTP aims to solve this issue by giving every player **one** free teleport.
 |`different-world`|`%target%`|
 |`not-in-this-world`||
 |`home-set`||
+
+##  Community Translations
+- (1.0.3) [Chinese](https://github.com/bonn2/BuddyTP/blob/master/translations/chinese.txt) by xiaoyueyoQvQ
+### How to install a translation
+1. Open the link to the desired translation
+2. Copy the contents into your `~/plugins/BuddyTP/messages.txt` file
+3. Restart the server
