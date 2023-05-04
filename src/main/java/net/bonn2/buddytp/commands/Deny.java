@@ -48,7 +48,7 @@ public class Deny implements CommandExecutor, TabCompleter {
 
         // Sender has specified who to deny
         for (BuddyTeleportRequest request : requests) {
-            if (request.getTargetPlayer().getName().equals(args[0])) {
+            if (request.getTarget().getName().equals(args[0])) {
                 // Sender has specified this request
                 request.deny();
                 return true;

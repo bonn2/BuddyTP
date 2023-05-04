@@ -77,7 +77,7 @@ public class BuddyTeleportRequests {
     public static @NotNull List<BuddyTeleportRequest> getRequestsForPlayer(Player player) {
         List<BuddyTeleportRequest> playerRequests = new ArrayList<>();
         for (BuddyTeleportRequest request : requests) {
-            if (request.getTargetPlayer().equals(player)) {
+            if (request.getTarget().equals(player)) {
                 playerRequests.add(request);
             }
         }
@@ -108,7 +108,7 @@ public class BuddyTeleportRequests {
                 requests.get(i).cancel();
                 i--;
             }
-            else if (requests.get(i).getTargetPlayer().equals(player)) {
+            else if (requests.get(i).getTarget().equals(player)) {
                 requests.get(i).cancel();
                 i--;
             }

@@ -67,7 +67,7 @@ public class Accept implements CommandExecutor, TabCompleter {
 
         // Sender has specified who to accept
         for (BuddyTeleportRequest request : requests) {
-            if (request.getTargetPlayer().getName().equals(args[0])) {
+            if (request.getTarget().getName().equals(args[0])) {
                 Map<String, String> placeholders = new HashMap<>(3);
                 placeholders.put("%sender%", request.getSender().getName());
                 placeholders.put("%target%", player.getName());

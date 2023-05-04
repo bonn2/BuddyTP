@@ -44,7 +44,7 @@ public class BuddyTeleportRequest {
      * Gets the player who is being asked to teleport.
      * @return The target player.
      */
-    public Player getTargetPlayer() {
+    public Player getTarget() {
         return targetPlayer;
     }
 
