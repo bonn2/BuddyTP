@@ -97,4 +97,21 @@ public class BuddyTeleportRequests {
         }
         return null;
     }
+
+    /**
+     * Cancels all incoming and outgoing requests for a player
+     * @param player The player to cancel all requests for
+     */
+    public static void cancelAllRequestsForPlayer(Player player) {
+        for (int i = 0; i < requests.size(); i++) {
+            if (requests.get(i).getSender().equals(player)) {
+                requests.get(i).cancel();
+                i--;
+            }
+            else if (requests.get(i).getTargetPlayer().equals(player)) {
+                requests.get(i).cancel();
+                i--;
+            }
+        }
+    }
 }

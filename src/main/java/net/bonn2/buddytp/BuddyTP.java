@@ -2,6 +2,7 @@ package net.bonn2.buddytp;
 
 import net.bonn2.buddytp.commands.*;
 import net.bonn2.buddytp.config.Config;
+import net.bonn2.buddytp.listeners.PlayerLeave;
 import net.bonn2.buddytp.util.BuddyTeleportRequests;
 import net.bonn2.buddytp.util.Data;
 import net.bonn2.buddytp.util.Messages;
@@ -45,6 +46,9 @@ public final class BuddyTP extends JavaPlugin {
                 Config.instance.setHome = false;
             }
         }
+
+        // Register listeners
+        getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
 
         // Register commands
         Objects.requireNonNull(getCommand("buddytp")).setExecutor(new Request());
