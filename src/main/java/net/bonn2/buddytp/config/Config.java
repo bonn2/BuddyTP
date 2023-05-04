@@ -22,6 +22,15 @@ public class Config {
     @Comment({"What item buying a new buddy tp costs."})
     public ItemStack price = new ItemStack(Material.DIAMOND_BLOCK, 1);
 
+    @Comment({"How many teleports a player gets."})
+    public int amountOfTeleports = 1;
+
+    @Comment({
+            "How long until a players teleports reset (seconds)",
+            "Set to -1 to make teleports not auto-reset"
+    })
+    public int resetAfter = -1;
+
     @Comment({"If players should be allowed to teleport to different worlds."})
     public boolean teleportAcrossWords = false;
 
